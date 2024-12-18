@@ -8,7 +8,7 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 if (!SECRET_KEY) {
-    throw new Error('SECRET_KEY is not defined');
+    throw new Error('SECRET_KEY is not defined in environment variables');
 }
 
 const findUserByEmail = async (email) => {
@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await findUserByEmail(email);
+        const user = await findUserByEmail(email, password);
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -49,7 +49,7 @@ const verifyToken = (req, res, next) => {
         req.user = {
             id: verified.id,
             email: verified.email,
-            role: verified.role,
+            roles: verified.role,
         };
 
         next();
@@ -84,7 +84,7 @@ const createUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-        return res.status(400).json({ message: "Name, email, and password are required" });
+        return res.status(400).json({ message: 'Name, email, and password are required' });
     }
 
     try {
@@ -100,15 +100,15 @@ const createUser = async (req, res) => {
             VALUES (?, ?, ?)
         `;
         const [result] = await pool.query(sql, [name, email, hashedPassword]);
-        res.status(201).json({ message: "User created successfully", userId: result.insertId });
+        res.status(201).json({ message: 'User created successfully', userId: result.insertId });
     } catch (error) {
         console.error('Error creating user:', error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
 
 const logoutUser = (req, res) => {
-    res.status(200).json({ message: "Logout successful" });
+    res.status(200).json({ message: 'Logout successful' });
 };
 
 export { loginUser, verifyToken, adminDashboard, createUser, logoutUser };

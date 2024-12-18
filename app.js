@@ -11,7 +11,7 @@ import { verifyRole as authorize } from './middleware/roleMiddleware.js';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -24,7 +24,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Hello, welcome to the homepage');
+    res.send('Welcome to the Notes API 😊');
 });
 
 app.get('/api/admin/dashboard', authenticateToken, authorize('admin'), (req, res) => {
@@ -37,6 +37,7 @@ app.use((err, req, res, next) => {
     res.status(500).send({ error: 'Something went wrong!', message: err.message });
 });
 
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
