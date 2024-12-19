@@ -1,8 +1,8 @@
 // roles.js
  const  roles = {
-    admin: ['read', 'write', 'delete'],
-    user: ['read'],
-    guest: ['read'],
+    admin: "admin",
+    user: "user",
+  
   };
   
 export default roles;
