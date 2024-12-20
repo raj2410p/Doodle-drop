@@ -1,6 +1,6 @@
 // roles.js
  const  roles = {
-    admin: "admin",
+    admin: "Admin",
     user: "user",
   
   };
