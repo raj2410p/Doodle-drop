@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
     return rows[0];
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -24,6 +24,7 @@ const loginUser = async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
+        console.log('User:', user);
 
         const token = generateToken(user);
         res.status(200).json({ token });
@@ -33,7 +34,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-const verifyToken = (req, res, next) => {
+ export const verifyToken = (req, res, next) => {
     try {
         const authHeader = req.header('Authorization');
         if (!authHeader) {
@@ -59,7 +60,7 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-const adminDashboard = (req, res) => {
+ export const adminDashboard = (req, res) => {
     try {
         const adminData = {
             dashboardStats: {
@@ -80,7 +81,7 @@ const adminDashboard = (req, res) => {
     }
 };
 
-const createUser = async (req, res) => {
+ export  const createUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -107,8 +108,8 @@ const createUser = async (req, res) => {
     }
 };
 
-const logoutUser = (req, res) => {
+ export const logoutUser = (req, res) => {
     res.status(200).json({ message: 'Logout successful' });
 };
 
-export { loginUser, verifyToken, adminDashboard, createUser, logoutUser };
+export  default{ loginUser, verifyToken, adminDashboard, createUser, logoutUser };

@@ -12,7 +12,6 @@ import { verifyRole as authorize } from './middleware/roleMiddleware.js';
 dotenv.config();
 const app = express();
 
-
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
@@ -27,9 +26,13 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Notes API 😊');
 });
 
-app.get('/api/admin/dashboard', authenticateToken, authorize('admin'), (req, res) => {
-    res.status(200).json({ message: 'Welcome, Admin!' });
+
+app.get('/api/users/dashboard', authenticateToken, (req, res) => {
+    res.status(200).json({ message: 'Welcome, User!' });
 });
+
+
+
 
 // Error-handling middleware
 app.use((err, req, res, next) => {

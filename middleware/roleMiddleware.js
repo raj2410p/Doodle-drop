@@ -1,4 +1,3 @@
-import roles from '../roles/roles.js';
 
 export const verifyRole = (requiredRole) => {
   if (typeof requiredRole !== 'string' || !requiredRole.trim()) {
@@ -6,9 +5,9 @@ export const verifyRole = (requiredRole) => {
   }
 
   return (req, res, next) => {
-    const userRole = req.user?.role;
+    const userRole = req.user?.roles;
     console.log(`User role: ${userRole}, Required role: ${requiredRole}`); // Add this line for debugging
-    if (!userRole || userRole.toLowerCase() !== requiredRole.toLowerCase()) {
+    if (!userRole || userRole !== requiredRole) {
       return res.status(403).json({ message: 'Access Denied: Insufficient Role' });
     }
 

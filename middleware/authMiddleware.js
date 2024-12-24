@@ -9,25 +9,23 @@ if (!SECRET_KEY) {
 }
 
 const authenticate = (req, res, next) => {
-    const authHeader = req.header('Authorization'); // Read token from the Authorization header
-  
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ message: 'Access Denied: No token provided' });
-    }
-  
-    const token = authHeader.split(' ')[1]; // Expecting 'Bearer <token>'
-    if (!token) {
-        return res.status(401).json({ message: 'Access Denied: No token provided' });
-    }
-  
-    try {
-        const decoded = jwt.verify(token, SECRET_KEY); // Decode token
-        req.user = decoded; // Attach user info to the request object
-        next();
-    } catch (error) {
-        console.error('Token Verification Error:', error.message); // Debugging log
-        res.status(403).json({ message: 'Invalid Token', error: error.message });
-    }
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+  console.log("Authorization Header:", token); // Debug log to verify the token
+
+  if (!token) {
+    console.log("No token provided");
+    return res.status(401).json({ message: "Access Denied: No Token Provided" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY); // Ensure `SECRET_KEY` is correctly set
+    console.log("Decoded Token:", decoded); // Debug log to verify the decoded token
+    req.user = decoded; // Attach the decoded user to `req.user`
+    next();
+  } catch (err) {
+    console.error("Token Verification Error:", err);
+    return res.status(400).json({ message: "Invalid Token" });
+  }
 };
 
 export default authenticate;
