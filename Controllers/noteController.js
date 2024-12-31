@@ -1,5 +1,7 @@
 import pool from '../Database/database.js';
 
+// controller to Get all notes
+
 export async function getNotes() {
     try {
         const [rows] = await pool.query('SELECT * FROM notes');

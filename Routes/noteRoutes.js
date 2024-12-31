@@ -3,7 +3,7 @@ import authenticateToken from '../middleware/authMiddleware.js';
 import { getNote, getNotes, createNote, updateNote, deleteNote } from '../Controllers/noteController.js';
 
 const router = express.Router();
-
+// Routes for notes
 router.get('/', authenticateToken, async (req, res) => {
     try {
         const notes = await getNotes();

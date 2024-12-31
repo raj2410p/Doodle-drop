@@ -1,6 +1,8 @@
 import db from '../Database/database.js';
 
 // Get all users (admin dashboard)
+
+// Get all users (admin dashboard)
 export const getAllUsers = async (req, res) => {
   try {
     const [users] = await db.query('SELECT id, name, email, role FROM users');

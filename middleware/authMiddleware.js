@@ -8,9 +8,10 @@ if (!SECRET_KEY) {
     throw new Error('SECRET_KEY is not defined in environment variables');
 }
 
+// token authentication middleware
 const authenticate = (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
-  console.log("Authorization Header:", token); // Debug log to verify the token
+  console.log("Authorization Header:", token); 
 
   if (!token) {
     console.log("No token provided");
@@ -18,9 +19,9 @@ const authenticate = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET_KEY); // Ensure `SECRET_KEY` is correctly set
-    console.log("Decoded Token:", decoded); // Debug log to verify the decoded token
-    req.user = decoded; // Attach the decoded user to `req.user`
+    const decoded = jwt.verify(token, SECRET_KEY); 
+    console.log("Decoded Token:", decoded); 
+    req.user = decoded;
     next();
   } catch (err) {
     console.error("Token Verification Error:", err);

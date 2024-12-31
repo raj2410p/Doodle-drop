@@ -5,7 +5,7 @@ import db from '../Database/database.js';
 import { createUser } from '../Controllers/userAuthController.js';
 
 const router = express.Router();
-
+// basic admin routes.
 router.post('/register', async (req, res) => {
   const { name, email, password, role } = req.body;
 

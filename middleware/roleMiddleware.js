@@ -1,4 +1,4 @@
-
+// for checking if the user has the required role to access a route
 export const verifyRole = (requiredRole) => {
   if (typeof requiredRole !== 'string' || !requiredRole.trim()) {
     throw new Error('Role must be a non-empty string');

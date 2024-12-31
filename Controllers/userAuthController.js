@@ -16,6 +16,8 @@ const findUserByEmail = async (email) => {
     return rows[0];
 };
 
+// controller to  Login user
+
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
 

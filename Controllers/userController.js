@@ -1,6 +1,8 @@
 import db from '../Database/database.js';
 import bcrypt from 'bcrypt';
 
+//for operations for all user
+
 // Get logged-in user profile
 const getProfile = async (req, res) => {
   try {

@@ -5,6 +5,8 @@ import { updateProfile, getProfile, updateUserRole } from '../Controllers/userCo
 
 const router = express.Router();
 
+// Home route
+
 // User authentication routes
 router.post('/login', loginUser);
 router.post('/logout', logoutUser);
