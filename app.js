@@ -7,7 +7,6 @@ import notesRoutes from './Routes/noteRoutes.js';
 import userRoutes from './Routes/userRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
 import authenticateToken from './middleware/authMiddleware.js';
-import { verifyRole as authorize } from './middleware/roleMiddleware.js';
 
 dotenv.config();
 const app = express();
