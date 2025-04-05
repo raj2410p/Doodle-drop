@@ -6,7 +6,7 @@ import axios from 'axios'
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/notes")  
+    axios.get("http://localhost:3001/")  
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -16,7 +16,7 @@ import axios from 'axios'
   
     <div>
       <h1>API Data</h1>
-      {data ? <pre>{JSON.stringify(data,  2)}</pre> : "Loading..."}
+      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : "Loading..."}
     </div>
     
     </>
