@@ -7,11 +7,19 @@ import notesRoutes from './Routes/noteRoutes.js';
 import userRoutes from './Routes/userRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
 import authenticateToken from './middleware/authMiddleware.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 dotenv.config();
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // front url
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,7 +46,13 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send({ error: 'Something went wrong!', message: err.message });
 });
+// Serve frontend
+// Serve frontend
+app.use(express.static(path.join(__dirname, "client/dist"))); // For Vite
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
