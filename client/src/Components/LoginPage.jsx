@@ -21,8 +21,8 @@ export const LoginPage = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       // Redirect based on role
-      if (role === 'admin') navigate('/dashboard/Admin');
-      else navigate('/Customer');
+      if (role === 'admin') navigate('/Admin');
+      else  navigate('/Customer');
     } catch (err) {
       console.error(err);
       alert('Login failed.');
