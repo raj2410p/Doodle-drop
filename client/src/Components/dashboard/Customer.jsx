@@ -5,41 +5,28 @@ import { useNavigate } from 'react-router-dom';
 export const Customer = () => {
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
-  const [form, setForm] = useState({ title: '', content: '' });
+  const [form, setForm] = useState({ title: '', body: '' });
   const [editNoteId, setEditNoteId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const notesPerPage = 10;
 
   const token = localStorage.getItem('token');
+  const headers = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
-  
-axios.get('http://localhost:3001/api/users/dashboard', {
-  headers: {
-    Authorization: `Bearer ${token}`, 
-  },
-})
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.error('Error fetching data:', error);
-    navigate('/login');
-  });
-  // Setup headers once
-  // const headers = {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // };
-
-  // Fetch all notes
   const fetchNotes = async () => {
     try {
+      setLoading(true);
       const res = await axios.get('http://localhost:3001/api/notes', headers);
-      setNotes(res.data.reverse()); // reverse to show latest first
+      setNotes(res.data.reverse());
     } catch (err) {
       console.error(err);
       navigate('/login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,32 +41,47 @@ axios.get('http://localhost:3001/api/users/dashboard', {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.title.trim() || !form.body.trim()) {
+      setError('Title and Body are required.');
+      return;
+    }
+
     try {
+      setLoading(true);
       if (editNoteId) {
         await axios.put(`http://localhost:3001/api/notes/${editNoteId}`, form, headers);
       } else {
         await axios.post('http://localhost:3001/api/notes', form, headers);
       }
-      setForm({ title: '', content: '' });
+      setForm({ title: '', body: '' });
       setEditNoteId(null);
-      fetchNotes();
+      setError('');
+      await fetchNotes();
     } catch (err) {
       console.error(err);
+      setError('Failed to save the note. Try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleEdit = (note) => {
-    setForm({ title: note.title, content: note.content });
-    setEditNoteId(note._id);
+    setForm({ title: note.title, body: note.body });
+    setEditNoteId(note.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this note?")) return;
+  const handleDelete = async (noteId) => {
+    if (!token) {
+      alert("No token found. Please log in again.");
+      return;
+    }
+
     try {
-      await axios.delete(`http://localhost:3001/api/notes/${id}`, headers);
-      fetchNotes();
+      await axios.delete(`http://localhost:3001/api/notes/${noteId}`, headers);
+      fetchNotes(); // Refresh list after deletion
     } catch (err) {
-      console.error(err);
+      console.error("Delete failed:", err.response?.data || err.message);
     }
   };
 
@@ -88,7 +90,6 @@ axios.get('http://localhost:3001/api/users/dashboard', {
     navigate('/login');
   };
 
-  // Pagination
   const indexOfLast = currentPage * notesPerPage;
   const indexOfFirst = indexOfLast - notesPerPage;
   const currentNotes = notes.slice(indexOfFirst, indexOfLast);
@@ -99,7 +100,8 @@ axios.get('http://localhost:3001/api/users/dashboard', {
       <h2>User Dashboard - Notes</h2>
       <button onClick={logout} style={{ marginBottom: '1rem' }}>Logout</button>
 
-      {/* Add or Edit Note Form */}
+      {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+
       <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
         <input
           type="text"
@@ -110,28 +112,46 @@ axios.get('http://localhost:3001/api/users/dashboard', {
           required
         />
         <textarea
-          name="content"
-          placeholder="Content"
-          value={form.content}
+          name="body"
+          placeholder="Body"
+          value={form.body}
           onChange={handleChange}
           required
         ></textarea>
-        <button type="submit">{editNoteId ? 'Update' : 'Add'} Note</button>
+        <button type="submit" disabled={loading}>
+          {editNoteId ? 'Update' : 'Add'} Note
+        </button>
       </form>
 
-      {/* Notes Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
-        {currentNotes.map(note => (
-          <div key={note._id} style={{ padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-            <h4>{note.title}</h4>
-            <p>{note.content}</p>
-            <button onClick={() => handleEdit(note)}>Edit</button>
-            <button onClick={() => handleDelete(note._id)} style={{ marginLeft: '0.5rem' }}>Delete</button>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {notes.length === 0 ? (
+            <div>No notes available.</div>
+          ) : (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: '1rem'
+            }}>
+              {currentNotes.map((note) => (
+                <div key={note.id} style={{
+                  padding: '1rem',
+                  border: '1px solid #ccc',
+                  borderRadius: '8px'
+                }}>
+                  <h4>{note.title}</h4>
+                  <p>{note.body}</p>
+                  <button onClick={() => handleEdit(note)}>Edit</button>
+                  <button onClick={() => handleDelete(note.id)} style={{ marginLeft: '0.5rem' }}>Delete</button>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
 
-      {/* Pagination */}
       <div style={{ marginTop: '1rem', textAlign: 'center' }}>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -154,4 +174,5 @@ axios.get('http://localhost:3001/api/users/dashboard', {
     </div>
   );
 };
+
 export default Customer;

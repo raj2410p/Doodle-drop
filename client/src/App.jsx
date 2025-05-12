@@ -4,7 +4,7 @@ import { LoginPage } from './Components/LoginPage';
 import { Admin } from './Components/dashboard/Admin';
 import { Customer } from './Components/dashboard/Customer';
 import { Register } from './Components/RegisterPage';
-import ProtectedRoute from './Components/ProtectedRoute'; 
+import ProtectedRoute from './ProtectedRoute'; 
 import {Navbar }from './Components/Navbar'; 
 
 import './App.css';
@@ -18,7 +18,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-
           {/* Protected Admin Route */}
           <Route
             path="/admin"
@@ -31,9 +30,9 @@ function App() {
 
           {/* Protected Customer Route */}
           <Route
-            path="/Customer"
+            path="/customer"
             element={
-              <ProtectedRoute roleRequired="user">
+              <ProtectedRoute roleRequired="User">
                 <Customer />
               </ProtectedRoute>
             }

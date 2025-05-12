@@ -30,7 +30,7 @@ router.get('/dashboard', Authenticate, verifyRole('admin'), async (req, res) => 
 });
 
 // Admin: Update user by ID
-router.put('/users/:id', Authenticate, verifyRole('Admin'), async (req, res) => {
+router.put('/users/:id', Authenticate, verifyRole('admin'), async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email, role } = req.body;
@@ -55,7 +55,7 @@ router.put('/users/:id', Authenticate, verifyRole('Admin'), async (req, res) => 
 });
 
 // Admin: Delete user by ID
-router.delete('/users/:id', Authenticate, verifyRole('Admin'), async (req, res) => {
+router.delete('/users/:id', Authenticate, verifyRole('admin'), async (req, res) => {
   try {
     const { id } = req.params;
     console.log(`Attempting to delete user with ID: ${id}`); // Add logging for debugging

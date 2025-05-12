@@ -21,7 +21,7 @@ export const LoginPage = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       // Redirect based on role
-      if (role === 'admin') navigate('/Admin');
+      if (role === 'admin') navigate('/admin');
       else  navigate('/Customer');
     } catch (err) {
       console.error(err);
@@ -55,8 +55,8 @@ export const LoginPage = () => {
         required
       >
         <option value="">Select Role</option>
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
+        <option value="user">user</option>
+        <option value="admin">admin</option>
       </select>
       <button type="submit">Login</button>
     </form>
