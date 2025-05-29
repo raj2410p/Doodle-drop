@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: '' });
+  const [form, setForm] = useState({ email: '', password: '', role: '' });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,16 +22,17 @@ export const LoginPage = () => {
 
       // Redirect based on role
       if (role === 'admin') navigate('/admin');
-      else  navigate('/Customer');
+      else navigate('/Customer');
     } catch (err) {
       console.error(err);
-      alert('Login failed.');
+      alert('Login failed. Please check your credentials.');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login form</h2>
+      <h2>Login</h2>
+
       <input
         type="email"
         name="email"
@@ -40,6 +41,7 @@ export const LoginPage = () => {
         onChange={handleChange}
         required
       />
+
       <input
         type="password"
         name="password"
@@ -48,17 +50,19 @@ export const LoginPage = () => {
         onChange={handleChange}
         required
       />
-      <select
-        name="role"
-        value={form.role}
-        onChange={handleChange}
-        required
-      >
+
+      <select name="role" value={form.role} onChange={handleChange} required>
         <option value="">Select Role</option>
-        <option value="user">user</option>
-        <option value="admin">admin</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
       </select>
+
       <button type="submit">Login</button>
+
+      {/* Forgot Password Link */}
+      <p>
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </p>
     </form>
   );
 };

@@ -25,6 +25,11 @@ export const Register = () => {
       <input name="name" onChange={handleChange} placeholder="Name" />
       <input name="email" onChange={handleChange} placeholder="Email" />
       <input type="password" name="password" onChange={handleChange} placeholder="Password" />
+      <select name="role" onChange={handleChange} required>
+        <option value="">Select Role</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
       <button type="submit">Register</button>
     </form>
   );

@@ -36,6 +36,7 @@ export const loginUser = async (req, res) => {
     }
 };
 
+//middleware to verify token
  export const verifyToken = (req, res, next) => {
     try {
         const authHeader = req.header('Authorization');

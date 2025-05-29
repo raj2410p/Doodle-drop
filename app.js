@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import notesRoutes from './Routes/noteRoutes.js';
 import userRoutes from './Routes/userRoutes.js';
 import adminRoutes from './Routes/adminRoutes.js';
+import otpRoutes from './Routes/otpRoutes.js';
 import authenticateToken from './middleware/authMiddleware.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -28,6 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/notes', notesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/otp', otpRoutes);
+
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Notes API 😊');
