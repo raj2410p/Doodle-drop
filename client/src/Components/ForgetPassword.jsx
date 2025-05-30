@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/users/forgot-password', { email });
+      await axios.post('http://localhost:3001/api/forgot-password', { email });
       localStorage.setItem('resetEmail', email);
       alert('OTP sent to your email!');
       navigate('/verify-otp');

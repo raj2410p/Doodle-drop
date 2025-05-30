@@ -10,7 +10,7 @@ const VerifyOtp = () => {
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/users/verify-otp', { email, otp });
+      await axios.post('http://localhost:3001/api/verify-otp', { email, otp });
       alert('OTP verified!');
       navigate('/reset-password');
     } catch (err) {

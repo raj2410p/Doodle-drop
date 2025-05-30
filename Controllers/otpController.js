@@ -26,8 +26,8 @@ export const sendOtp = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // set in .env
-        pass: process.env.EMAIL_PASS, // set in .env
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS, 
       },
     });
 
@@ -65,14 +65,15 @@ export const verifyOtp = async (req, res) => {
 };
 
 export const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, newPassword } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
     await pool.query('UPDATE users SET password = ? WHERE email = ?', [hashedPassword, email]);
     await pool.query('DELETE FROM password_resets WHERE email = ?', [email]); // Cleanup
     res.json({ message: 'Password reset successfully' });
   } catch (error) {
+    console.error(error); // <-- Add this to log the exact issue
     res.status(500).json({ message: 'Error resetting password' });
   }
 };
