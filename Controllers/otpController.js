@@ -65,10 +65,10 @@ export const verifyOtp = async (req, res) => {
 };
 
 export const resetPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     await pool.query('UPDATE users SET password = ? WHERE email = ?', [hashedPassword, email]);
     await pool.query('DELETE FROM password_resets WHERE email = ?', [email]); // Cleanup
     res.json({ message: 'Password reset successfully' });
