@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
- export const Admin = () => {
+export const Admin = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState({ name: '', email: '', role: '' });
   const [error, setError] = useState('');
+  const [formError, setFormError] = useState('');
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
@@ -30,13 +31,21 @@ import { useNavigate } from 'react-router-dom';
   const handleEditClick = (user) => {
     setEditingUser(user.id);
     setForm({ name: user.name, email: user.email, role: user.role });
+    setFormError('');
   };
 
   const handleUpdate = async (id) => {
+    const { name, email, role } = form;
+    if (!name || !email || !role) {
+      setFormError('All fields are required.');
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:3001/api/admin/users/${id}`, form, headers);
       setEditingUser(null);
       fetchUsers();
+      setFormError('');
     } catch (err) {
       setError('Failed to update user');
       console.error(err);
@@ -63,13 +72,15 @@ import { useNavigate } from 'react-router-dom';
       <h2>Admin Panel</h2>
       <button onClick={logout}>Logout</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {formError && <p style={{ color: 'orange' }}>{formError}</p>}
+
       <table border="1" cellPadding="10" style={{ marginTop: '1rem', width: '100%' }}>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th>Name *</th>
+            <th>Email *</th>
+            <th>Role *</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -82,26 +93,31 @@ import { useNavigate } from 'react-router-dom';
                   <input
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    required
                   />
                 </td>
                 <td>
                   <input
+                    type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    required
                   />
                 </td>
                 <td>
                   <select
                     value={form.role}
                     onChange={(e) => setForm({ ...form, role: e.target.value })}
+                    required
                   >
+                    <option value="">Select</option>
                     <option value="User">User</option>
                     <option value="Admin">Admin</option>
                   </select>
                 </td>
                 <td>
                   <button onClick={() => handleUpdate(user.id)}>Save</button>
-                  <button onClick={() => setEditingUser(null)}>Cancel</button>
+                  <button onClick={() => { setEditingUser(null); setFormError(''); }}>Cancel</button>
                 </td>
               </tr>
             ) : (
