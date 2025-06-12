@@ -94,6 +94,7 @@ export const Customer = () => {
   const indexOfFirst = indexOfLast - notesPerPage;
   const currentNotes = notes.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(notes.length / notesPerPage);
+  
 
   return (
     <div style={{ padding: '1rem' }}>

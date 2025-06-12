@@ -39,7 +39,7 @@ export const LoginPage = () => {
         placeholder="Email"
         value={form.email}
         onChange={handleChange}
-        required
+        
       />
 
       <input
@@ -48,10 +48,10 @@ export const LoginPage = () => {
         placeholder="Password"
         value={form.password}
         onChange={handleChange}
-        required
+      
       />
 
-      <select name="role" value={form.role} onChange={handleChange} required>
+      <select name="role" value={form.role} onChange={handleChange} >
         <option value="">Select Role</option>
         <option value="user">User</option>
         <option value="admin">Admin</option>

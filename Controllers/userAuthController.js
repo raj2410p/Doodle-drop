@@ -34,6 +34,7 @@ export const loginUser = async (req, res) => {
         console.error('Error logging in user:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
+    
 };
 
 //middleware to verify token
