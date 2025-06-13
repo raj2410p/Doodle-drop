@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
- export const Navbar = () => {
+export const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
@@ -13,20 +13,53 @@ import { useNavigate } from 'react-router-dom';
   };
 
   return (
-    <nav>
-      <h2>notes app</h2>
-      <ul>
-        {!token && (
+    <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
+      <h2
+        className="text-xl font-bold cursor-pointer"
+        onClick={() => navigate('/')}
+      >
+        Notes App
+      </h2>
+      <ul className="flex space-x-6 font-medium">
+        {!token ? (
           <>
-            <li onClick={() => navigate('/login')}>Login</li>
-            <li onClick={() => navigate('/register')}>Register</li>
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={() => navigate('/login')}
+            >
+              Login
+            </li>
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={() => navigate('/register')}
+            >
+              Register
+            </li>
           </>
-        )}
-        {token && (
+        ) : (
           <>
-            {role === 'admin' && <li onClick={() => navigate('/admin')}>Admin</li>}
-            {role === 'user' && <li onClick={() => navigate('/customer')}>Customer</li>}
-            <li onClick={handleLogout}>Logout</li>
+            {role === 'admin' && (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={() => navigate('/admin')}
+              >
+                Admin
+              </li>
+            )}
+            {role === 'user' && (
+              <li
+                className="cursor-pointer hover:underline"
+                onClick={() => navigate('/customer')}
+              >
+                Customer
+              </li>
+            )}
+            <li
+              className="cursor-pointer hover:underline"
+              onClick={handleLogout}
+            >
+              Logout
+            </li>
           </>
         )}
       </ul>

@@ -68,73 +68,106 @@ export const Admin = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Admin Panel</h2>
-      <button onClick={logout}>Logout</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {formError && <p style={{ color: 'orange' }}>{formError}</p>}
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-bold text-blue-700">Admin Panel</h2>
+        <button
+          onClick={logout}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
 
-      <table border="1" cellPadding="10" style={{ marginTop: '1rem', width: '100%' }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name *</th>
-            <th>Email *</th>
-            <th>Role *</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user =>
-            editingUser === user.id ? (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>
-                  <input
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    required
-                  />
-                </td>
-                <td>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    required
-                  />
-                </td>
-                <td>
-                  <select
-                    value={form.role}
-                    onChange={(e) => setForm({ ...form, role: e.target.value })}
-                    required
-                  >
-                    <option value="">Select</option>
-                    <option value="User">User</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-                </td>
-                <td>
-                  <button onClick={() => handleUpdate(user.id)}>Save</button>
-                  <button onClick={() => { setEditingUser(null); setFormError(''); }}>Cancel</button>
-                </td>
-              </tr>
-            ) : (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  <button onClick={() => handleEditClick(user)}>Edit</button>
-                  <button onClick={() => handleDelete(user.id)}>Delete</button>
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
+      {error && <p className="text-red-500 mb-2">{error}</p>}
+      {formError && <p className="text-yellow-500 mb-2">{formError}</p>}
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white rounded shadow">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="text-left px-4 py-2">ID</th>
+              <th className="text-left px-4 py-2">Name</th>
+              <th className="text-left px-4 py-2">Email</th>
+              <th className="text-left px-4 py-2">Role</th>
+              <th className="text-left px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) =>
+              editingUser === user.id ? (
+                <tr key={user.id} className="border-t">
+                  <td className="px-4 py-2">{user.id}</td>
+                  <td className="px-4 py-2">
+                    <input
+                      className="border rounded px-2 py-1 w-full"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <input
+                      type="email"
+                      className="border rounded px-2 py-1 w-full"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    />
+                  </td>
+                  <td className="px-4 py-2">
+                    <select
+                      className="border rounded px-2 py-1 w-full"
+                      value={form.role}
+                      onChange={(e) => setForm({ ...form, role: e.target.value })}
+                    >
+                      <option value="">Select</option>
+                      <option value="User">User</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                  </td>
+                  <td className="px-4 py-2 space-x-2">
+                    <button
+                      onClick={() => handleUpdate(user.id)}
+                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditingUser(null);
+                        setFormError('');
+                      }}
+                      className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500"
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              ) : (
+                <tr key={user.id} className="border-t">
+                  <td className="px-4 py-2">{user.id}</td>
+                  <td className="px-4 py-2">{user.name}</td>
+                  <td className="px-4 py-2">{user.email}</td>
+                  <td className="px-4 py-2">{user.role}</td>
+                  <td className="px-4 py-2 space-x-2">
+                    <button
+                      onClick={() => handleEditClick(user)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(user.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

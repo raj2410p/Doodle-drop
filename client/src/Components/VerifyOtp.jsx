@@ -9,7 +9,6 @@ const VerifyOtp = () => {
   const email = localStorage.getItem('resetEmail');
   const navigate = useNavigate();
 
-  // Countdown timer for Resend button
   useEffect(() => {
     let timer;
     if (resendTimer > 0) {
@@ -48,30 +47,47 @@ const VerifyOtp = () => {
   };
 
   return (
-    <form onSubmit={handleVerify} style={{ maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <h2>Verify OTP</h2>
-      <p>OTP has been sent to <strong>{email}</strong></p>
-      <input
-        type="text"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-        placeholder="Enter OTP"
-        required
-      />
-      <button type="submit" style={{ marginTop: '10px' }}>Verify</button>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleVerify}
+        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Verify OTP</h2>
+        <p className="text-sm text-gray-600 mb-4 text-center">
+          OTP has been sent to <strong className="text-blue-600">{email}</strong>
+        </p>
 
-      {canResend ? (
+        <input
+          type="text"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          placeholder="Enter OTP"
+          required
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+        />
+
         <button
-          type="button"
-          onClick={handleResendOtp}
-          style={{ marginTop: '10px', display: 'block' }}
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition mb-4"
         >
-          Resend OTP
+          Verify
         </button>
-      ) : (
-        <p style={{ marginTop: '10px' }}>Resend available in {resendTimer} seconds</p>
-      )}
-    </form>
+
+        {canResend ? (
+          <button
+            type="button"
+            onClick={handleResendOtp}
+            className="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition"
+          >
+            Resend OTP
+          </button>
+        ) : (
+          <p className="text-sm text-gray-500 text-center">
+            Resend available in {resendTimer} seconds
+          </p>
+        )}
+      </form>
+    </div>
   );
 };
 
