@@ -13,9 +13,9 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
+    <nav className="bg-white opacity-60 rounded-xl text-gray-800 px-6 py-3 flex justify-between items-center shadow-md">
       <h2
-        className="text-xl font-bold cursor-pointer"
+        className="text-xl font-bold cursor-pointer  hover:bg-gray-300 px-2 py-1 rounded"
         onClick={() => navigate('/')}
       >
         Notes App
@@ -24,13 +24,13 @@ export const Navbar = () => {
         {!token ? (
           <>
             <li
-              className="cursor-pointer hover:underline"
+              className="cursor-pointer  hover:bg-gray-300 px-2 py-1 rounded"
               onClick={() => navigate('/login')}
             >
               Login
             </li>
             <li
-              className="cursor-pointer hover:underline"
+              className="cursor-pointer hover:bg-gray-300 px-2 py-1 rounded"
               onClick={() => navigate('/register')}
             >
               Register
@@ -40,7 +40,7 @@ export const Navbar = () => {
           <>
             {role === 'admin' && (
               <li
-                className="cursor-pointer hover:underline"
+                className="cursor-pointer   hover:bg-gray-300 px-2 py-1 rounded"
                 onClick={() => navigate('/admin')}
               >
                 Admin
@@ -48,14 +48,14 @@ export const Navbar = () => {
             )}
             {role === 'user' && (
               <li
-                className="cursor-pointer hover:underline"
+                className="cursor-pointer hover:bg-gray-300 px-2 py-1 rounded"
                 onClick={() => navigate('/customer')}
               >
                 Customer
               </li>
             )}
             <li
-              className="cursor-pointer hover:underline"
+              className="cursor-pointer hover:bg-gray-300 px-2 py-1 rounded"
               onClick={handleLogout}
             >
               Logout

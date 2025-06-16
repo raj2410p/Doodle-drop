@@ -68,23 +68,18 @@ export const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-white bg-opacity-50 p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-blue-700">Admin Panel</h2>
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        >
-          Logout
-        </button>
+        <h2 className="text-3xl text-center font-bold text-blue-700">Admin Panel</h2>
+       
       </div>
 
       {error && <p className="text-red-500 mb-2">{error}</p>}
       {formError && <p className="text-yellow-500 mb-2">{formError}</p>}
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white rounded shadow">
-          <thead className="bg-gray-200">
+      <div className="overflow-x-auto ">
+        <table className="min-w-full bg-white bg-opacity-50 rounded shadow">
+          <thead className="bg-transparent ">
             <tr>
               <th className="text-left px-4 py-2">ID</th>
               <th className="text-left px-4 py-2">Name</th>
@@ -151,13 +146,13 @@ export const Admin = () => {
                   <td className="px-4 py-2 space-x-2">
                     <button
                       onClick={() => handleEditClick(user)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                      className="bg-transparent text-white border border-black px-3 py-1 rounded hover:bg-white hover:text-teal-300"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(user.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      className="bg-white text-red-500 px-3 py-1 rounded hover:bg-rose-300 hover:text-white"
                     >
                       Delete
                     </button>

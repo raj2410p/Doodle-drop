@@ -10,8 +10,9 @@ export const Customer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const notesPerPage = 10;
+  const [showNotes, setShowNotes] = useState(true); // new toggle state
 
+  const notesPerPage = 10;
   const token = localStorage.getItem('token');
   const headers = {
     headers: { Authorization: `Bearer ${token}` },
@@ -73,19 +74,19 @@ export const Customer = () => {
 
   const handleDelete = async (noteId) => {
     if (!token) {
-      alert("No token found. Please log in again.");
+      alert('No token found. Please log in again.');
       return;
     }
 
     try {
       await axios.delete(`http://localhost:3001/api/notes/${noteId}`, headers);
-      fetchNotes(); // Refresh list after deletion
+      fetchNotes();
     } catch (err) {
-      console.error("Delete failed:", err.response?.data || err.message);
+      console.error('Delete failed:', err.response?.data || err.message);
     }
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
   };
@@ -94,17 +95,19 @@ export const Customer = () => {
   const indexOfFirst = indexOfLast - notesPerPage;
   const currentNotes = notes.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(notes.length / notesPerPage);
-  
 
   return (
     <div style={{ padding: '1rem' }}>
-      <h2>User Dashboard - Notes</h2>
-      <button onClick={logout} style={{ marginBottom: '1rem' }}>Logout</button>
+      <h2 className="text-2xl font-bold">User Dashboard - Notes</h2>
 
       {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
+      <form className={`flex-1 transition-all duration-300 ${ showNotes ? "h-fit":"h-70 grid grid-cols-1  place-items-center justify-center overflow-y-auto"
+} space-y-4 rounded-xl  p-1`} onSubmit={handleSubmit} style={{ marginBottom: '2rem',
+
+       }}>
         <input
+          className={`bg-white border-sky-900 bg-opacity-50 border-4 rounded-lg p-2 mb-2 min-w-9 ${ showNotes ? "h-fit":"h-20 w-7/12 place-items-center justify-center overflow-y-auto"}`}
           type="text"
           name="title"
           placeholder="Title"
@@ -113,47 +116,87 @@ export const Customer = () => {
           required
         />
         <textarea
+          className={`bg-white border-sky-900 bg-opacity-50 border-4 rounded-lg p-2 mb-2 min-w-9 ${ showNotes ? "h-fit":"h-40 w-7/12 place-items-center justify-center overflow-y-auto"}`}
           name="body"
           placeholder="Body"
           value={form.body}
           onChange={handleChange}
           required
         ></textarea>
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          className="bg-transparent text-white border-sky-900 border-2 hover:bg-white hover:text-gray-700 py-1 px-2 rounded"
+          disabled={loading}
+        >
           {editNoteId ? 'Update' : 'Add'} Note
         </button>
       </form>
 
+      {/* Toggle button for notes grid */}
+      <div className="text-center mb-4 w-fit h-fit ">
+        <button
+          onClick={() => setShowNotes(!showNotes)}
+          className=" flex  text-3xl bg-transparent p-1  border border-gray-900 focus:outline-none hover:bg-white hover:text-teal-800"
+          title={showNotes ? 'Hide Notes' : 'Show Notes'}
+        >
+          <span className="material-symbols-outlined ">
+            {showNotes ? 'expand_circle_up' : 'expand_circle_down'}
+          </span>
+          <p className="text-sm font-bold mb-2">
+            Saved Notes
+          </p>
+        </button>
+      </div>
+
       {loading ? (
         <div>Loading...</div>
+      ) : notes.length === 0 ? (
+        <div>No notes available.</div>
       ) : (
-        <>
-          {notes.length === 0 ? (
-            <div>No notes available.</div>
-          ) : (
-            <div style={{
+        showNotes && (
+          <div
+            style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-              gap: '1rem'
-            }}>
-              {currentNotes.map((note) => (
-                <div key={note.id} style={{
+              gap: '1rem',
+              paddingTop: '2rem'
+            }}
+          >
+            {currentNotes.map((note) => (
+              <div
+                key={note.id}
+                style={{
                   padding: '1rem',
                   border: '1px solid #ccc',
-                  borderRadius: '8px'
-                }}>
-                  <h4>{note.title}</h4>
-                  <p>{note.body}</p>
-                  <button onClick={() => handleEdit(note)}>Edit</button>
-                  <button onClick={() => handleDelete(note.id)} style={{ marginLeft: '0.5rem' }}>Delete</button>
-                </div>
-              ))}
-            </div>
-          )}
-        </>
+                  borderRadius: '8px',
+                  backgroundColor: '#fff1cc',
+                  borderColor: '#655f4c',
+                  borderWidth: '4px',
+                }}
+              >
+                <h4>{note.title}</h4>
+                <p>{note.body}</p>
+                <button
+                  className="bg-amber-700 text-white  hover:bg-amber-400 opacity-90 py-1 px-2 rounded"
+                  onClick={() => handleEdit(note)}
+                >
+                  Edit
+                </button>
+                <button
+                  className=" bg-red-500 text-white px-3 py-1 rounded hover:bg-rose-300 hover:text-white"
+                  onClick={() => handleDelete(note.id)}
+                  style={{ marginLeft: '0.5rem' }}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        )
       )}
 
-      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+      {/* Pagination */}
+      <div className={`${showNotes ? '' : 'hidden'}`} style={{ marginTop: '1rem', textAlign: 'center' }}>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}

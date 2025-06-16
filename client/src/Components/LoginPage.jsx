@@ -28,10 +28,10 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-transparent">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4"
+        className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-md space-y-4 "
       >
         <h2 className="text-2xl font-bold text-center">Login</h2>
 
