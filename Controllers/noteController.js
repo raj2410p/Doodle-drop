@@ -1,22 +1,22 @@
 import pool from '../Database/database.js';
 
-// controller to Get all notes
-
-export async function getNotes() {
+// ✅ Get all notes for a specific user
+export async function getNotesByUser(userId) {
     try {
-        const [rows] = await pool.query('SELECT * FROM notes');
+        const [rows] = await pool.query('SELECT * FROM notes WHERE user_id = ?', [userId]);
         return rows;
     } catch (error) {
-        console.error('Error fetching notes:', error);
+        console.error('Error fetching notes by user:', error);
         throw error;
     }
 }
 
+// ✅ Get a single note by its ID
 export async function getNote(id) {
     try {
         const [rows] = await pool.query('SELECT * FROM notes WHERE id = ?', [id]);
         if (rows.length === 0) {
-            return null; // Note not found
+            return null;
         }
         return rows[0];
     } catch (error) {
@@ -25,22 +25,29 @@ export async function getNote(id) {
     }
 }
 
-export async function createNote(title, body) {
+// ✅ Create a note with user association
+export async function createNote(title, body, userId) {
     try {
-        const [result] = await pool.query('INSERT INTO notes (title, body) VALUES (?, ?)', [title, body]);
-        const id = result.insertId;
-        return await getNote(id);
+        const [result] = await pool.query(
+            'INSERT INTO notes (title, body, user_id) VALUES (?, ?, ?)',
+            [title, body, userId]
+        );
+        return await getNote(result.insertId);
     } catch (error) {
         console.error('Error creating note:', error);
         throw error;
     }
 }
 
+// ✅ Update a note
 export async function updateNote(id, title, body) {
     try {
-        const [result] = await pool.query('UPDATE notes SET title = ?, body = ? WHERE id = ?', [title, body, id]);
+        const [result] = await pool.query(
+            'UPDATE notes SET title = ?, body = ? WHERE id = ?',
+            [title, body, id]
+        );
         if (result.affectedRows === 0) {
-            return null; // No rows updated, note not found
+            return null;
         }
         return await getNote(id);
     } catch (error) {
@@ -49,11 +56,12 @@ export async function updateNote(id, title, body) {
     }
 }
 
+// ✅ Delete a note
 export async function deleteNote(id) {
     try {
         const note = await getNote(id);
         if (!note) {
-            return null; // Note not found
+            return null;
         }
         await pool.query('DELETE FROM notes WHERE id = ?', [id]);
         return note;

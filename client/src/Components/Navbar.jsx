@@ -13,7 +13,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white opacity-60 rounded-xl text-gray-800 px-6 py-3 flex justify-between items-center shadow-md">
+    <nav className="bg-white opacity-60 rounded-xl  text-gray-800 px-6 py-3 flex flex-wrap  justify-between items-center shadow-md ">
       <h2
         className="text-xl font-bold cursor-pointer  hover:bg-gray-300 px-2 py-1 rounded"
         onClick={() => navigate('/')}
@@ -21,8 +21,8 @@ export const Navbar = () => {
         <img src="./src/assets/favicon.ico" alt="DoodleDrop" className="inline-block mr-2 h-5" />
         DoodleDrop
       </h2>
-      
-      <ul className="flex space-x-6 font-medium">
+
+      <ul className="flex space-x-6 font-medium sm:text-sm sm:items-center sm:justify-center  sm:flex-wrap sm:align-center">
         {!token ? (
           <>
             <li

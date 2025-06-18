@@ -68,7 +68,7 @@ export const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white bg-opacity-50 p-6">
+    <div className=" bg-white bg-opacity-50 p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl text-center font-bold text-blue-700">Admin Panel</h2>
        
@@ -146,7 +146,7 @@ export const Admin = () => {
                   <td className="px-4 py-2 space-x-2">
                     <button
                       onClick={() => handleEditClick(user)}
-                      className="bg-transparent text-white border border-black px-3 py-1 rounded hover:bg-white hover:text-teal-300"
+                      className="bg-transparent text-black border border-black px-3 py-1 rounded hover:bg-white hover:text-teal-300"
                     >
                       Edit
                     </button>

@@ -9,8 +9,8 @@ import { Navbar } from './Components/Navbar';
 
 // OTP Flow Pages
 import ForgotPassword from './Components/ForgetPassword';
-import VerifyOtp from './Components/verifyOtp';
-import ResetPassword from './Components/resetPassword';
+import VerifyOtp from './Components/VerifyOtp';
+import ResetPassword from './Components/ResetPassword';
 
 import './App.css';
 

@@ -44,9 +44,9 @@ export const sendOtp = async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: `"Notes Application" <${process.env.EMAIL_USER}>`,
+      from: `"DoodleDrop" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Notes Application: Your OTP for Password Reset',
+      subject: 'DoodleDrop: Your OTP for Password Reset',
        html: `<!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -63,13 +63,13 @@ export const sendOtp = async (req, res) => {
       <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Notes Application</a>
     </div>
     <p style="font-size:1.1em">Hi,</p>
-    <p>Thank you for choosing Notes application. Use the following OTP to complete your Password Recovery Procedure. Your Otp is here:</p>
+    <p>Thank you for choosing DoodleDrop. Use the following OTP to complete your Password Recovery Procedure. Your Otp is here:</p>
     <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
-    <p style="font-size:0.9em;">Regards,<br />Notes Application</p>
+    <p style="font-size:0.9em;">Regards,<br />DoodleDrop</p>
     <hr style="border:none;border-top:1px solid #eee" />
     <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-      <p>Notes Application .co</p>
-      <p>1600 Lucknow ,Uttar Pradesh</p>
+      <p>DoodleDrop .co</p>
+      <p>26029 Lucknow ,Uttar Pradesh</p>
       <p>India</p>
     </div>
   </div>

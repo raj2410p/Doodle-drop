@@ -102,12 +102,12 @@ export const Customer = () => {
 
       {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
 
-      <form className={`flex-1 transition-all duration-300 ${ showNotes ? "h-fit":"h-70 grid grid-cols-1  place-items-center justify-center overflow-y-auto"
-} space-y-4 rounded-xl  p-1`} onSubmit={handleSubmit} style={{ marginBottom: '2rem',
+      <form className={`flex-1 transition-all duration-300  ${ showNotes ? "h-fit":"h-70 grid grid-cols-1  place-items-center justify-center overflow-y-auto "
+} space-y-4 rounded-xl `} onSubmit={handleSubmit} style={{ marginBottom: '2rem',
 
        }}>
         <input
-          className={`bg-white border-sky-900 bg-opacity-50 border-4 rounded-lg p-2 mb-2 min-w-9 ${ showNotes ? "h-fit":"h-20 w-7/12 place-items-center justify-center overflow-y-auto"}`}
+          className={`bg-white border-sky-900 bg-opacity-50 border-4 rounded-lg p-2 mb-2 min-w-9  ${ showNotes ? "h-fit":" h-20 w-7/12 place-items-center justify-center overflow-y-auto "}`}
           type="text"
           name="title"
           placeholder="Title"
