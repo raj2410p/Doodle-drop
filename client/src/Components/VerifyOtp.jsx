@@ -47,7 +47,7 @@ const VerifyOtp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-full bg-transparent ">
+    <div className="flex justify-center items-center bg-transparent "style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleVerify}
         className="bg-white opacity-80 p-8 rounded-lg shadow-md w-full max-w-md"

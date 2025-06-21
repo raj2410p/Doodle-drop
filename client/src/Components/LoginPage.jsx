@@ -28,7 +28,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-full  bg-transparent">
+    <div className="flex items-center justify-center  bg-transparent" style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleSubmit}
         className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-md space-y-4 "

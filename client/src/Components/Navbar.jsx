@@ -13,7 +13,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white opacity-60 rounded-xl  text-gray-800 px-6 py-3 flex flex-wrap  justify-between items-center shadow-md ">
+    <nav className="bg-white opacity-60 rounded-xl  text-gray-800 px-6 py-3 flex flex-wrap  justify-between items-center shadow-md mb-4">
       <h2
         className="text-xl font-bold cursor-pointer  hover:bg-gray-300 px-2 py-1 rounded"
         onClick={() => navigate('/')}

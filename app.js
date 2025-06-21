@@ -33,7 +33,7 @@ app.use('/api', otpRoutes);
 
 
 app.get('/', (req, res) => {
-    res.send('Welcome to the Notes API 😊');
+    res.send('Doodle drop server is running');
 });
 
 

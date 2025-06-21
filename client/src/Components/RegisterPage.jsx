@@ -24,7 +24,7 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-full bg-gray-100">
+    <div className="flex items-center justify-center bg-gray-100"style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4"

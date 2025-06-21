@@ -24,7 +24,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-full bg-transparent">
+    <div className="flex justify-center items-center bg-transparent"style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleReset}
         className="bg-white opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md"
