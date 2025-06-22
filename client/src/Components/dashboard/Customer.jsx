@@ -21,7 +21,7 @@ export const Customer = () => {
   const fetchNotes = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:3001/api/notes', headers);
+      const res = await axios.get('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/notes', headers);
       setNotes(res.data.reverse());
     } catch (err) {
       console.error(err);
@@ -50,9 +50,9 @@ export const Customer = () => {
     try {
       setLoading(true);
       if (editNoteId) {
-        await axios.put(`http://localhost:3001/api/notes/${editNoteId}`, form, headers);
+        await axios.put(`https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/notes/${editNoteId}`, form, headers);
       } else {
-        await axios.post('http://localhost:3001/api/notes', form, headers);
+        await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/notes', form, headers);
       }
       setForm({ title: '', body: '' });
       setEditNoteId(null);
@@ -79,7 +79,7 @@ export const Customer = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:3001/api/notes/${noteId}`, headers);
+      await axios.delete(`https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/notes/${noteId}`, headers);
       fetchNotes();
     } catch (err) {
       console.error('Delete failed:', err.response?.data || err.message);

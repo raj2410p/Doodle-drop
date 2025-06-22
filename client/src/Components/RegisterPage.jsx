@@ -16,7 +16,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/users/register', form);
+      await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/users/register', form);
       alert('Registered successfully!');
     } catch (err) {
       alert('Registration failed.');

@@ -6,7 +6,7 @@ export const HomePage = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/')
+    axios.get('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/')
       .then((response) => setData(response.data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);

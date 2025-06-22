@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const handleReset = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/reset-password', {
+      await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/reset-password', {
         email: email,
         password: password,
       });
