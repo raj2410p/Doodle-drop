@@ -56,7 +56,7 @@ app.use(express.static(path.join(__dirname, "client/dist"))); // For Vite
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/dist", "index.html"));
 });
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+
+app.listen(process.env.PORT || PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
