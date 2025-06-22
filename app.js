@@ -50,11 +50,9 @@ app.use((err, req, res, next) => {
     res.status(500).send({ error: 'Something went wrong!', message: err.message });
 });
 // Serve frontend
-// Serve frontend
-app.use(express.static(path.join(__dirname, "client/dist"))); // For Vite
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 const PORT = 3001; // Default port for the server
 app.listen(process.env.PORT || PORT, () => {
