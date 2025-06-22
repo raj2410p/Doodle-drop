@@ -54,7 +54,6 @@ app.use(express.static(path.join(__dirname, 'client', 'dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
-const PORT = 3001; // Default port for the server
-app.listen(process.env.PORT || PORT, () => {
+app.listen(process.env.PORT || 3001, () => {
     console.log(`Server is running on port ${PORT}`);
 });
