@@ -18,7 +18,7 @@ export const Navbar = () => {
         className="text-xl font-bold cursor-pointer  hover:bg-gray-300 px-2 py-1 rounded"
         onClick={() => navigate('/')}
       >
-        <img src="./src/assets/favicon.ico"  className="inline-block mr-2 h-5" />
+        <img src="./src/assets/favicon.ico" alt="" className="inline-block mr-2 h-5" />
         DoodleDrop
       </h2>
 
