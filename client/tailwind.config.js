@@ -6,6 +6,9 @@ export default {
   base:{
     './':'./',
   },
+  build:{
+    outDir: 'dist',
+  },
   theme: {
     extend: {},
   },
