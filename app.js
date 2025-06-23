@@ -50,9 +50,9 @@ app.use((err, req, res, next) => {
     res.status(500).send({ error: 'Something went wrong!', message: err.message });
 });
 // Serve frontend
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 const PORT = process.env.PORT || 3001;
 app.listen(process.env.PORT || PORT, () => {
