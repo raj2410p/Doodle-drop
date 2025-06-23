@@ -15,9 +15,9 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+FRONTEND_URL = 'https://doodle-drop-app-9d8bf42b718b.herokuapp.com/';
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173', // front url
+    origin: process.env.FRONTEND_URL || FRONTEND_URL, // front url
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }));
@@ -31,10 +31,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api', otpRoutes);
 
-
-app.get('/', (req, res) => {
-    res.send('Doodle drop server is running');
-});
 
 
 app.get('/api/users/dashboard', authenticateToken, (req, res) => {
