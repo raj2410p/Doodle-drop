@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-FRONTEND_URL = 'https://doodle-drop-app-9d8bf42b718b.herokuapp.com/';
+const FRONTEND_URL = 'https://doodle-drop-app-9d8bf42b718b.herokuapp.com/';
 app.use(cors({
     origin: process.env.FRONTEND_URL || FRONTEND_URL, // front url
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
