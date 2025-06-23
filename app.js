@@ -32,10 +32,6 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', otpRoutes);
 
 
-app.get('/', (req, res) => {
-    res.send('Doodle drop server is running');
-});
-
 
 app.get('/api/users/dashboard', authenticateToken, (req, res) => {
     res.status(200).json({ message: 'Welcome, User!' });
