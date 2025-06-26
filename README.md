@@ -65,5 +65,14 @@ Doodle Drop is a full-stack note-taking application that allows users to securel
 ---
 
 ## 📁 Project Structure
-
+📦 Doodle-Drop
+├── client/ # React frontend
+├── server/ # Express backend
+│ ├── Controllers/
+│ ├── Middleware/
+│ ├── Routes/
+│ ├── Database/
+│ └── index.js
+├── .env
+├── README.md
 
