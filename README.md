@@ -76,3 +76,36 @@ Doodle Drop is a full-stack note-taking application that allows users to securel
 ├── .env
 ├── README.md
 
+
+---
+
+## 📦 Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/doodle-drop.git
+cd doodle-drop
+
+# Install server dependencies
+cd server
+npm install
+
+# Setup environment variables (.env)
+touch .env
+# Add your credentials:
+# PORT=3001
+# DB_HOST=...
+# DB_USER=...
+# DB_PASSWORD=...
+# DB_NAME=...
+# JWT_SECRET=...
+
+# Start server
+npm run dev
+# In a separate terminal, install client dependencies
+cd client
+npm install
+
+# Start React client
+npm start
+
