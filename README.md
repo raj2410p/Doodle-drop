@@ -1,6 +1,6 @@
 # 📝 Doodle Drop - Notes App
 
-Doodle Drop is a full-stack note-taking application that allows users to securely create, update,forget-password,admin dashboard for user management and manage personal notes. Built with modern technologies like React, Node.js, Express, MySQL, and JWT authentication.
+Doodle Drop is a secure and feature-rich full-stack note-taking application that enables users to effortlessly create, update, and manage their personal notes. It includes user authentication, password recovery, and an admin dashboard for comprehensive user management.
 
 ---
 
