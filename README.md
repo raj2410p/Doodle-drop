@@ -6,7 +6,8 @@ Doodle Drop is a full-stack note-taking application that allows users to securel
 
 ## 🚀 Live Demo
 
-🌐 [Deployed on Heroku]([https://doodle-drop-app-9d8bf42b718b.herokuapp.com/])  
+
+🌐 [Deployed on Heroku](https://doodle-drop-app-9d8bf42b718b.herokuapp.com/)  
 
 
 ---
