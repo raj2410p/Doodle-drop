@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const handleReset = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/reset-password', {
+      await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/reset-password', {
         email: email,
         password: password,
       });
@@ -24,7 +24,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-full bg-transparent">
+    <div className="flex justify-center items-center bg-transparent"style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleReset}
         className="bg-white opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md"

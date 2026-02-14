@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-    origin: 'http://localhost:5173', // front url
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173', // front url
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }));
@@ -31,10 +31,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api', otpRoutes);
 
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the Notes API 😊');
-});
 
 
 app.get('/api/users/dashboard', authenticateToken, (req, res) => {
@@ -50,13 +46,11 @@ app.use((err, req, res, next) => {
     res.status(500).send({ error: 'Something went wrong!', message: err.message });
 });
 // Serve frontend
-// Serve frontend
-app.use(express.static(path.join(__dirname, "client/dist"))); // For Vite
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

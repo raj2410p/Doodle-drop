@@ -16,7 +16,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/users/register', form);
+      await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/users/register', form);
       alert('Registered successfully!');
     } catch (err) {
       alert('Registration failed.');
@@ -24,10 +24,10 @@ export const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-full bg-gray-100">
+    <div className="flex items-center justify-center bg-transparent "style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4"
+        className="bg-white opacity-80 p-6 rounded-xl shadow-lg w-full max-w-md space-y-4"
       >
         <h2 className="text-2xl font-bold text-center">Register</h2>
 

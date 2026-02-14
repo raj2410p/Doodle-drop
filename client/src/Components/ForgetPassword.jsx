@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/forgot-password', { email });
+      await axios.post('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/forgot-password', { email });
       localStorage.setItem('resetEmail', email);
       alert('OTP sent to your email!');
       navigate('/verify-otp');
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-full bg-transparent">
+    <div className="flex justify-center items-center bg-transparent"style={{ minHeight: 'inherit' }}>
       <form
         onSubmit={handleSubmit}
         className="bg-white opacity-80 p-8 rounded-lg shadow-md w-full max-w-md"

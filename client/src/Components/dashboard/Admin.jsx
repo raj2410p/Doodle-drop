@@ -20,7 +20,7 @@ export const Admin = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/admin/dashboard', headers);
+      const res = await axios.get('https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/admin/dashboard', headers);
       setUsers(res.data);
     } catch (err) {
       setError('Unauthorized or Server Error');
@@ -42,7 +42,7 @@ export const Admin = () => {
     }
 
     try {
-      await axios.put(`http://localhost:3001/api/admin/users/${id}`, form, headers);
+      await axios.put(`https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/admin/users/${id}`, form, headers);
       setEditingUser(null);
       fetchUsers();
       setFormError('');
@@ -54,7 +54,7 @@ export const Admin = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/admin/users/${id}`, headers);
+      await axios.delete(`https://doodle-drop-app-9d8bf42b718b.herokuapp.com/api/admin/users/${id}`, headers);
       fetchUsers();
     } catch (err) {
       setError('Failed to delete user');
